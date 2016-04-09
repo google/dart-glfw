@@ -1,6 +1,6 @@
 bits: 0  # 0 means the bits of Dart SDK
 compiler:
-  includes: ['{DART_SDK}/include', '${GLFW_INCLUDE}']
+  includes: ['{DART_SDK}/include', '{GLFW_INCLUDE}']
   input_files:
   - 'src/glfw_extension.cc'
   - 'src/instantiate_glfw_classes.cc'
@@ -20,25 +20,26 @@ linker:
 platforms:
   linux:
     compiler:
-      arguments: ['-fPIC', '-Wall']
+      arguments: ['-fPIC', '-Wall', '-Werror']
+      defines: {'DART_SHARED_LIB'}
     linker:
-      arguments: ['-shared']
+      arguments: ['-shared', '-lglfw']
       output_file: 'libglfw_extension.so'
   macos:
     compiler:
       arguments: ['-fPIC', '-Wall']
+      defines: {'DART_SHARED_LIB'}
     linker:
       arguments: ['-dynamiclib', '-undefined', 'dynamic_lookup']
       output_file: 'libglfw_extension.dylib'
   windows:
     compiler:
-      defines: {'DART_SHARED_LIB'}
-      includes: ['C:\Program Files\GLFW\include']
       arguments: ['/EHsc']
+      defines: {'DART_SHARED_LIB'}
     linker:
       arguments: ['/DLL']
       input_files:
       - 'dart.lib'
       - 'glfw3dll.lib'
-      libpaths: ['{DART_SDK}/bin', '${GLFW}/lib']
+      libpaths: ['{DART_SDK}/bin', '${GLFW_LIB}']
       output_file: 'glfw_extension.dll'
