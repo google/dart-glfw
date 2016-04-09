@@ -1,6 +1,6 @@
 bits: 0  # 0 means the bits of Dart SDK
 compiler:
-  includes: ['{DART_SDK}/include']
+  includes: ['{DART_SDK}/include', '${GLFW_INCLUDE}']
   input_files:
   - 'src/glfw_extension.cc'
   - 'src/instantiate_glfw_classes.cc'
@@ -21,23 +21,15 @@ platforms:
   linux:
     compiler:
       arguments: ['-fPIC', '-Wall']
-      input_files:
-      - 'native/serial_port_posix.cc'
     linker:
       arguments: ['-shared']
-      input_files:
-      - 'serial_port_posix'
-      output_file: 'libserial_port.so'
+      output_file: 'libglfw_extension.so'
   macos:
     compiler:
       arguments: ['-fPIC', '-Wall']
-      input_files:
-      - 'native/serial_port_posix.cc'
     linker:
       arguments: ['-dynamiclib', '-undefined', 'dynamic_lookup']
-      input_files:
-      - 'serial_port_posix'
-      output_file: 'libserial_port.dylib'
+      output_file: 'libglfw_extension.dylib'
   windows:
     compiler:
       defines: {'DART_SHARED_LIB'}
@@ -48,5 +40,5 @@ platforms:
       input_files:
       - 'dart.lib'
       - 'glfw3dll.lib'
-      libpaths: ['{DART_SDK}/bin', 'C:\Program Files\GLFW\lib']
+      libpaths: ['{DART_SDK}/bin', '${GLFW}/lib']
       output_file: 'glfw_extension.dll'
