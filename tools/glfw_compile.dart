@@ -68,7 +68,7 @@ class Program {
   }
 
   static void main(List<String> args) {
-    if (args.isEmpty) args = ['glfw.yaml'];
+    if (args.isEmpty) args = ['glfw_extension.yaml'];
     var basePath = Directory.current.path;
     var projectPath = toAbsolutePath(args[0], basePath);
     var result = Program.buildProject(projectPath, {
