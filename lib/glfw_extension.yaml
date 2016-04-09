@@ -41,5 +41,5 @@ platforms:
       input_files:
       - 'dart.lib'
       - 'glfw3dll.lib'
-      libpaths: ['{DART_SDK}/bin', '${GLFW_LIB}']
+      libpaths: ['{DART_SDK}/bin', '{GLFW_LIB}']
       output_file: 'glfw_extension.dll'
