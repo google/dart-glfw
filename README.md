@@ -12,15 +12,13 @@ cp generated/* ../lib/src/generated/
 ```
 # Steps to compile the bindings
 
-## Linux with GNU Make:
-If your `dart_api.h`, `GLFW/glfw3.h`, or `libglfw.so` files are not in the
-standard locations, set the enviroment variables `DART_INCLUDE`, `GLFW_INCLUDE`,
-and/or `GLFW_LIB` and run the following commands.
+Set environment variables DART_INCLUDE, GLFW_INCLDUE, and GLFW_LIB.
 
 ```shell
 cd lib/
-make
+dart ../tools/glfw_compile.dart
 ```
+
 Note that if you set the `GLFW_LIB` variable when compiling, you must also set
 `LD_LIBRARY_PATH` to include the same directory when running your program or
 the Dart VM will not be able to find `libglfw.so`.
@@ -28,9 +26,6 @@ the Dart VM will not be able to find `libglfw.so`.
 TODO(hstern): It is convenient for development to use the .so file,
 but for distribution purposes it is less useful. It would be nice to have an
 option to use the .a library as well.
-
-## Other Platforms
-TODO
 
 # Notes about the auto-generated bindings
 
