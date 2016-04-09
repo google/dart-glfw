@@ -1,0 +1,52 @@
+bits: 0  # 0 means the bits of Dart SDK
+compiler:
+  includes: ['{DART_SDK}/include']
+  input_files:
+  - 'src/glfw_extension.cc'
+  - 'src/instantiate_glfw_classes.cc'
+  - 'src/util.cc'
+  - 'src/manual_bindings.cc'
+  - 'src/generated/function_list.cc'
+  - 'src/generated/glfw_bindings.cc'
+clean: [ '*.exp', '*.lib', '*.o', '*.obj']
+linker:
+  input_files:
+  - 'glfw_extension'
+  - 'instantiate_glfw_classes'
+  - 'util'
+  - 'manual_bindings'
+  - 'function_list'
+  - 'glfw_bindings'
+platforms:
+  linux:
+    compiler:
+      arguments: ['-fPIC', '-Wall']
+      input_files:
+      - 'native/serial_port_posix.cc'
+    linker:
+      arguments: ['-shared']
+      input_files:
+      - 'serial_port_posix'
+      output_file: 'libserial_port.so'
+  macos:
+    compiler:
+      arguments: ['-fPIC', '-Wall']
+      input_files:
+      - 'native/serial_port_posix.cc'
+    linker:
+      arguments: ['-dynamiclib', '-undefined', 'dynamic_lookup']
+      input_files:
+      - 'serial_port_posix'
+      output_file: 'libserial_port.dylib'
+  windows:
+    compiler:
+      defines: {'DART_SHARED_LIB'}
+      includes: ['C:\Program Files\GLFW\include']
+      arguments: ['/EHsc']
+    linker:
+      arguments: ['/DLL']
+      input_files:
+      - 'dart.lib'
+      - 'glfw3dll.lib'
+      libpaths: ['{DART_SDK}/bin', 'C:\Program Files\GLFW\lib']
+      output_file: 'glfw_extension.dll'
