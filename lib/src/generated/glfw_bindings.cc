@@ -11,6 +11,7 @@
 #include "GLFW/glfw3.h"
 #include "dart_api.h"
 
+
 #include "../instantiate_glfw_classes.h"
 #include "../util.h"
 #include "glfw_bindings.h"
@@ -22,7 +23,9 @@ void glfwInit_native(Dart_NativeArguments arguments) {
   Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
 }
 
-void glfwTerminate_native(Dart_NativeArguments arguments) { glfwTerminate(); }
+void glfwTerminate_native(Dart_NativeArguments arguments) {
+  glfwTerminate();
+}
 
 void glfwGetVersionString_native(Dart_NativeArguments arguments) {
   const char* ret = glfwGetVersionString();
@@ -38,14 +41,11 @@ void _GLFWerrorfun_cb(int error, const char* description) {
   HandleError(Dart_InvokeClosure(dart_GLFWerrorfun_cb, 2, arguments));
 }
 void glfwSetErrorCallback_native(Dart_NativeArguments arguments) {
-  Dart_Handle new_GLFWerrorfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 0));
-  new_GLFWerrorfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWerrorfun_cb));
+  Dart_Handle new_GLFWerrorfun_cb = HandleError(Dart_GetNativeArgument(arguments, 0));
+  new_GLFWerrorfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWerrorfun_cb));
   Dart_Handle old_GLFWerrorfun_cb = Dart_Null();
   if (dart_GLFWerrorfun_cb != NULL) {
-    old_GLFWerrorfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWerrorfun_cb));
+    old_GLFWerrorfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWerrorfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWerrorfun_cb);
   }
   dart_GLFWerrorfun_cb = new_GLFWerrorfun_cb;
@@ -63,8 +63,7 @@ void glfwGetMonitorName_native(Dart_NativeArguments arguments) {
 
   GLFWmonitor* monitor = NULL;
   if (!Dart_IsNull(monitor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        monitor_obj, 0, reinterpret_cast<intptr_t*>(&monitor)));
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
   }
 
   const char* ret = glfwGetMonitorName(monitor);
@@ -80,14 +79,11 @@ void _GLFWmonitorfun_cb(GLFWmonitor* monitor, int event) {
   HandleError(Dart_InvokeClosure(dart_GLFWmonitorfun_cb, 2, arguments));
 }
 void glfwSetMonitorCallback_native(Dart_NativeArguments arguments) {
-  Dart_Handle new_GLFWmonitorfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 0));
-  new_GLFWmonitorfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWmonitorfun_cb));
+  Dart_Handle new_GLFWmonitorfun_cb = HandleError(Dart_GetNativeArgument(arguments, 0));
+  new_GLFWmonitorfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWmonitorfun_cb));
   Dart_Handle old_GLFWmonitorfun_cb = Dart_Null();
   if (dart_GLFWmonitorfun_cb != NULL) {
-    old_GLFWmonitorfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWmonitorfun_cb));
+    old_GLFWmonitorfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWmonitorfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWmonitorfun_cb);
   }
   dart_GLFWmonitorfun_cb = new_GLFWmonitorfun_cb;
@@ -100,8 +96,7 @@ void glfwGetVideoMode_native(Dart_NativeArguments arguments) {
 
   GLFWmonitor* monitor = NULL;
   if (!Dart_IsNull(monitor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        monitor_obj, 0, reinterpret_cast<intptr_t*>(&monitor)));
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
   }
 
   const GLFWvidmode* ret = glfwGetVideoMode(monitor);
@@ -113,8 +108,7 @@ void glfwSetGamma_native(Dart_NativeArguments arguments) {
 
   GLFWmonitor* monitor = NULL;
   if (!Dart_IsNull(monitor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        monitor_obj, 0, reinterpret_cast<intptr_t*>(&monitor)));
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
   }
 
   Dart_Handle gamma_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -132,8 +126,7 @@ void glfwGetGammaRamp_native(Dart_NativeArguments arguments) {
 
   GLFWmonitor* monitor = NULL;
   if (!Dart_IsNull(monitor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        monitor_obj, 0, reinterpret_cast<intptr_t*>(&monitor)));
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
   }
 
   const GLFWgammaramp* ret = glfwGetGammaRamp(monitor);
@@ -145,8 +138,7 @@ void glfwSetGammaRamp_native(Dart_NativeArguments arguments) {
 
   GLFWmonitor* monitor = NULL;
   if (!Dart_IsNull(monitor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        monitor_obj, 0, reinterpret_cast<intptr_t*>(&monitor)));
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
   }
 
   Dart_Handle ramp_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -163,6 +155,7 @@ void glfwSetGammaRamp_native(Dart_NativeArguments arguments) {
     free(ramp->blue);
     free(ramp);
   }
+
 }
 
 void glfwDefaultWindowHints_native(Dart_NativeArguments arguments) {
@@ -170,21 +163,21 @@ void glfwDefaultWindowHints_native(Dart_NativeArguments arguments) {
 }
 
 void glfwWindowHint_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
-
-  Dart_Handle hint_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle hint_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
 
   int64_t hint = 0;
   if (Dart_IsInteger(hint_obj)) {
     HandleError(Dart_IntegerToInt64(hint_obj, &hint));
   }
 
-  glfwWindowHint(target, hint);
+  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  int64_t value = 0;
+  if (Dart_IsInteger(value_obj)) {
+    HandleError(Dart_IntegerToInt64(value_obj, &value));
+  }
+
+  glfwWindowHint(hint, value);
 }
 
 void glfwCreateWindow_native(Dart_NativeArguments arguments) {
@@ -213,16 +206,14 @@ void glfwCreateWindow_native(Dart_NativeArguments arguments) {
 
   GLFWmonitor* monitor = NULL;
   if (!Dart_IsNull(monitor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        monitor_obj, 0, reinterpret_cast<intptr_t*>(&monitor)));
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
   }
 
   Dart_Handle share_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
 
   GLFWwindow* share = NULL;
   if (!Dart_IsNull(share_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        share_obj, 0, reinterpret_cast<intptr_t*>(&share)));
+    HandleError(Dart_GetNativeInstanceField(share_obj, 0, reinterpret_cast<intptr_t *>(&share)));
   }
 
   GLFWwindow* ret = glfwCreateWindow(width, height, title, monitor, share);
@@ -234,8 +225,7 @@ void glfwDestroyWindow_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwDestroyWindow(window);
@@ -246,8 +236,7 @@ void glfwWindowShouldClose_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   int ret = glfwWindowShouldClose(window);
@@ -259,8 +248,7 @@ void glfwSetWindowShouldClose_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -278,8 +266,7 @@ void glfwSetWindowTitle_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle title_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -292,13 +279,42 @@ void glfwSetWindowTitle_native(Dart_NativeArguments arguments) {
   glfwSetWindowTitle(window, title);
 }
 
+void glfwSetWindowIcon_native(Dart_NativeArguments arguments) {
+  Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  GLFWwindow* window = NULL;
+  if (!Dart_IsNull(window_obj)) {
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
+  }
+
+  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  int64_t count = 0;
+  if (Dart_IsInteger(count_obj)) {
+    HandleError(Dart_IntegerToInt64(count_obj, &count));
+  }
+
+  Dart_Handle images_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+
+  GLFWimage* images = NULL;
+  if (!Dart_IsNull(images_obj)) {
+    images = NewGLFWimageFromDart(images_obj);
+  }
+
+  glfwSetWindowIcon(window, count, images);
+  if (images != NULL) {
+    free(images->pixels);
+    free(images);
+  }
+
+}
+
 void glfwSetWindowPos_native(Dart_NativeArguments arguments) {
   Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle xpos_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -318,13 +334,76 @@ void glfwSetWindowPos_native(Dart_NativeArguments arguments) {
   glfwSetWindowPos(window, xpos, ypos);
 }
 
+void glfwSetWindowSizeLimits_native(Dart_NativeArguments arguments) {
+  Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  GLFWwindow* window = NULL;
+  if (!Dart_IsNull(window_obj)) {
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
+  }
+
+  Dart_Handle minwidth_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  int64_t minwidth = 0;
+  if (Dart_IsInteger(minwidth_obj)) {
+    HandleError(Dart_IntegerToInt64(minwidth_obj, &minwidth));
+  }
+
+  Dart_Handle minheight_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+
+  int64_t minheight = 0;
+  if (Dart_IsInteger(minheight_obj)) {
+    HandleError(Dart_IntegerToInt64(minheight_obj, &minheight));
+  }
+
+  Dart_Handle maxwidth_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
+
+  int64_t maxwidth = 0;
+  if (Dart_IsInteger(maxwidth_obj)) {
+    HandleError(Dart_IntegerToInt64(maxwidth_obj, &maxwidth));
+  }
+
+  Dart_Handle maxheight_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
+
+  int64_t maxheight = 0;
+  if (Dart_IsInteger(maxheight_obj)) {
+    HandleError(Dart_IntegerToInt64(maxheight_obj, &maxheight));
+  }
+
+  glfwSetWindowSizeLimits(window, minwidth, minheight, maxwidth, maxheight);
+}
+
+void glfwSetWindowAspectRatio_native(Dart_NativeArguments arguments) {
+  Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  GLFWwindow* window = NULL;
+  if (!Dart_IsNull(window_obj)) {
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
+  }
+
+  Dart_Handle numer_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  int64_t numer = 0;
+  if (Dart_IsInteger(numer_obj)) {
+    HandleError(Dart_IntegerToInt64(numer_obj, &numer));
+  }
+
+  Dart_Handle denom_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+
+  int64_t denom = 0;
+  if (Dart_IsInteger(denom_obj)) {
+    HandleError(Dart_IntegerToInt64(denom_obj, &denom));
+  }
+
+  glfwSetWindowAspectRatio(window, numer, denom);
+}
+
 void glfwSetWindowSize_native(Dart_NativeArguments arguments) {
   Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -349,8 +428,7 @@ void glfwIconifyWindow_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwIconifyWindow(window);
@@ -361,11 +439,21 @@ void glfwRestoreWindow_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwRestoreWindow(window);
+}
+
+void glfwMaximizeWindow_native(Dart_NativeArguments arguments) {
+  Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  GLFWwindow* window = NULL;
+  if (!Dart_IsNull(window_obj)) {
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
+  }
+
+  glfwMaximizeWindow(window);
 }
 
 void glfwShowWindow_native(Dart_NativeArguments arguments) {
@@ -373,8 +461,7 @@ void glfwShowWindow_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwShowWindow(window);
@@ -385,11 +472,21 @@ void glfwHideWindow_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwHideWindow(window);
+}
+
+void glfwFocusWindow_native(Dart_NativeArguments arguments) {
+  Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  GLFWwindow* window = NULL;
+  if (!Dart_IsNull(window_obj)) {
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
+  }
+
+  glfwFocusWindow(window);
 }
 
 void glfwGetWindowMonitor_native(Dart_NativeArguments arguments) {
@@ -397,12 +494,64 @@ void glfwGetWindowMonitor_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   GLFWmonitor* ret = glfwGetWindowMonitor(window);
   Dart_SetReturnValue(arguments, HandleError(NewGLFWmonitor(ret)));
+}
+
+void glfwSetWindowMonitor_native(Dart_NativeArguments arguments) {
+  Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  GLFWwindow* window = NULL;
+  if (!Dart_IsNull(window_obj)) {
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
+  }
+
+  Dart_Handle monitor_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  GLFWmonitor* monitor = NULL;
+  if (!Dart_IsNull(monitor_obj)) {
+    HandleError(Dart_GetNativeInstanceField(monitor_obj, 0, reinterpret_cast<intptr_t *>(&monitor)));
+  }
+
+  Dart_Handle xpos_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+
+  int64_t xpos = 0;
+  if (Dart_IsInteger(xpos_obj)) {
+    HandleError(Dart_IntegerToInt64(xpos_obj, &xpos));
+  }
+
+  Dart_Handle ypos_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
+
+  int64_t ypos = 0;
+  if (Dart_IsInteger(ypos_obj)) {
+    HandleError(Dart_IntegerToInt64(ypos_obj, &ypos));
+  }
+
+  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
+
+  int64_t width = 0;
+  if (Dart_IsInteger(width_obj)) {
+    HandleError(Dart_IntegerToInt64(width_obj, &width));
+  }
+
+  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
+
+  int64_t height = 0;
+  if (Dart_IsInteger(height_obj)) {
+    HandleError(Dart_IntegerToInt64(height_obj, &height));
+  }
+
+  Dart_Handle refreshRate_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
+
+  int64_t refreshRate = 0;
+  if (Dart_IsInteger(refreshRate_obj)) {
+    HandleError(Dart_IntegerToInt64(refreshRate_obj, &refreshRate));
+  }
+
+  glfwSetWindowMonitor(window, monitor, xpos, ypos, width, height, refreshRate);
 }
 
 void glfwGetWindowAttrib_native(Dart_NativeArguments arguments) {
@@ -410,8 +559,7 @@ void glfwGetWindowAttrib_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle attrib_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -439,18 +587,14 @@ void glfwSetWindowPosCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWwindowposfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWwindowposfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWwindowposfun_cb));
+  Dart_Handle new_GLFWwindowposfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWwindowposfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWwindowposfun_cb));
   Dart_Handle old_GLFWwindowposfun_cb = Dart_Null();
   if (dart_GLFWwindowposfun_cb != NULL) {
-    old_GLFWwindowposfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWwindowposfun_cb));
+    old_GLFWwindowposfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWwindowposfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWwindowposfun_cb);
   }
   dart_GLFWwindowposfun_cb = new_GLFWwindowposfun_cb;
@@ -472,18 +616,14 @@ void glfwSetWindowSizeCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWwindowsizefun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWwindowsizefun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWwindowsizefun_cb));
+  Dart_Handle new_GLFWwindowsizefun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWwindowsizefun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWwindowsizefun_cb));
   Dart_Handle old_GLFWwindowsizefun_cb = Dart_Null();
   if (dart_GLFWwindowsizefun_cb != NULL) {
-    old_GLFWwindowsizefun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWwindowsizefun_cb));
+    old_GLFWwindowsizefun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWwindowsizefun_cb));
     Dart_DeletePersistentHandle(dart_GLFWwindowsizefun_cb);
   }
   dart_GLFWwindowsizefun_cb = new_GLFWwindowsizefun_cb;
@@ -503,18 +643,14 @@ void glfwSetWindowCloseCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWwindowclosefun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWwindowclosefun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWwindowclosefun_cb));
+  Dart_Handle new_GLFWwindowclosefun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWwindowclosefun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWwindowclosefun_cb));
   Dart_Handle old_GLFWwindowclosefun_cb = Dart_Null();
   if (dart_GLFWwindowclosefun_cb != NULL) {
-    old_GLFWwindowclosefun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWwindowclosefun_cb));
+    old_GLFWwindowclosefun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWwindowclosefun_cb));
     Dart_DeletePersistentHandle(dart_GLFWwindowclosefun_cb);
   }
   dart_GLFWwindowclosefun_cb = new_GLFWwindowclosefun_cb;
@@ -534,18 +670,14 @@ void glfwSetWindowRefreshCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWwindowrefreshfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWwindowrefreshfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWwindowrefreshfun_cb));
+  Dart_Handle new_GLFWwindowrefreshfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWwindowrefreshfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWwindowrefreshfun_cb));
   Dart_Handle old_GLFWwindowrefreshfun_cb = Dart_Null();
   if (dart_GLFWwindowrefreshfun_cb != NULL) {
-    old_GLFWwindowrefreshfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWwindowrefreshfun_cb));
+    old_GLFWwindowrefreshfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWwindowrefreshfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWwindowrefreshfun_cb);
   }
   dart_GLFWwindowrefreshfun_cb = new_GLFWwindowrefreshfun_cb;
@@ -566,18 +698,14 @@ void glfwSetWindowFocusCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWwindowfocusfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWwindowfocusfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWwindowfocusfun_cb));
+  Dart_Handle new_GLFWwindowfocusfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWwindowfocusfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWwindowfocusfun_cb));
   Dart_Handle old_GLFWwindowfocusfun_cb = Dart_Null();
   if (dart_GLFWwindowfocusfun_cb != NULL) {
-    old_GLFWwindowfocusfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWwindowfocusfun_cb));
+    old_GLFWwindowfocusfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWwindowfocusfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWwindowfocusfun_cb);
   }
   dart_GLFWwindowfocusfun_cb = new_GLFWwindowfocusfun_cb;
@@ -598,18 +726,14 @@ void glfwSetWindowIconifyCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWwindowiconifyfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWwindowiconifyfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWwindowiconifyfun_cb));
+  Dart_Handle new_GLFWwindowiconifyfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWwindowiconifyfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWwindowiconifyfun_cb));
   Dart_Handle old_GLFWwindowiconifyfun_cb = Dart_Null();
   if (dart_GLFWwindowiconifyfun_cb != NULL) {
-    old_GLFWwindowiconifyfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWwindowiconifyfun_cb));
+    old_GLFWwindowiconifyfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWwindowiconifyfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWwindowiconifyfun_cb);
   }
   dart_GLFWwindowiconifyfun_cb = new_GLFWwindowiconifyfun_cb;
@@ -631,18 +755,14 @@ void glfwSetFramebufferSizeCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWframebuffersizefun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWframebuffersizefun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWframebuffersizefun_cb));
+  Dart_Handle new_GLFWframebuffersizefun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWframebuffersizefun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWframebuffersizefun_cb));
   Dart_Handle old_GLFWframebuffersizefun_cb = Dart_Null();
   if (dart_GLFWframebuffersizefun_cb != NULL) {
-    old_GLFWframebuffersizefun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWframebuffersizefun_cb));
+    old_GLFWframebuffersizefun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWframebuffersizefun_cb));
     Dart_DeletePersistentHandle(dart_GLFWframebuffersizefun_cb);
   }
   dart_GLFWframebuffersizefun_cb = new_GLFWframebuffersizefun_cb;
@@ -650,9 +770,24 @@ void glfwSetFramebufferSizeCallback_native(Dart_NativeArguments arguments) {
   Dart_SetReturnValue(arguments, old_GLFWframebuffersizefun_cb);
 }
 
-void glfwPollEvents_native(Dart_NativeArguments arguments) { glfwPollEvents(); }
+void glfwPollEvents_native(Dart_NativeArguments arguments) {
+  glfwPollEvents();
+}
 
-void glfwWaitEvents_native(Dart_NativeArguments arguments) { glfwWaitEvents(); }
+void glfwWaitEvents_native(Dart_NativeArguments arguments) {
+  glfwWaitEvents();
+}
+
+void glfwWaitEventsTimeout_native(Dart_NativeArguments arguments) {
+  Dart_Handle timeout_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  double timeout = 0.0;
+  if (Dart_IsDouble(timeout_obj)) {
+    HandleError(Dart_DoubleValue(timeout_obj, &timeout));
+  }
+
+  glfwWaitEventsTimeout(timeout);
+}
 
 void glfwPostEmptyEvent_native(Dart_NativeArguments arguments) {
   glfwPostEmptyEvent();
@@ -663,8 +798,7 @@ void glfwGetInputMode_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -683,8 +817,7 @@ void glfwSetInputMode_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -704,13 +837,31 @@ void glfwSetInputMode_native(Dart_NativeArguments arguments) {
   glfwSetInputMode(window, mode, value);
 }
 
+void glfwGetKeyName_native(Dart_NativeArguments arguments) {
+  Dart_Handle key_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  int64_t key = 0;
+  if (Dart_IsInteger(key_obj)) {
+    HandleError(Dart_IntegerToInt64(key_obj, &key));
+  }
+
+  Dart_Handle scancode_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  int64_t scancode = 0;
+  if (Dart_IsInteger(scancode_obj)) {
+    HandleError(Dart_IntegerToInt64(scancode_obj, &scancode));
+  }
+
+  const char* ret = glfwGetKeyName(key, scancode);
+  Dart_SetReturnValue(arguments, HandleError(Dart_NewStringFromCString(ret)));
+}
+
 void glfwGetKey_native(Dart_NativeArguments arguments) {
   Dart_Handle window_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle key_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -729,8 +880,7 @@ void glfwGetMouseButton_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle button_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -749,8 +899,7 @@ void glfwSetCursorPos_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle xpos_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -798,6 +947,7 @@ void glfwCreateCursor_native(Dart_NativeArguments arguments) {
     free(image->pixels);
     free(image);
   }
+
 }
 
 void glfwCreateStandardCursor_native(Dart_NativeArguments arguments) {
@@ -817,8 +967,7 @@ void glfwDestroyCursor_native(Dart_NativeArguments arguments) {
 
   GLFWcursor* cursor = NULL;
   if (!Dart_IsNull(cursor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        cursor_obj, 0, reinterpret_cast<intptr_t*>(&cursor)));
+    HandleError(Dart_GetNativeInstanceField(cursor_obj, 0, reinterpret_cast<intptr_t *>(&cursor)));
   }
 
   glfwDestroyCursor(cursor);
@@ -829,16 +978,14 @@ void glfwSetCursor_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle cursor_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
 
   GLFWcursor* cursor = NULL;
   if (!Dart_IsNull(cursor_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        cursor_obj, 0, reinterpret_cast<intptr_t*>(&cursor)));
+    HandleError(Dart_GetNativeInstanceField(cursor_obj, 0, reinterpret_cast<intptr_t *>(&cursor)));
   }
 
   glfwSetCursor(window, cursor);
@@ -846,8 +993,7 @@ void glfwSetCursor_native(Dart_NativeArguments arguments) {
 
 static Dart_Handle dart_GLFWkeyfun_cb = NULL;
 
-void _GLFWkeyfun_cb(GLFWwindow* window, int key, int scancode, int action,
-                    int mods) {
+void _GLFWkeyfun_cb(GLFWwindow* window, int key, int scancode, int action, int mods) {
   Dart_Handle arguments[5];
   arguments[0] = HandleError(NewGLFWwindow(window));
   arguments[1] = HandleError(Dart_NewInteger(key));
@@ -861,17 +1007,14 @@ void glfwSetKeyCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWkeyfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle new_GLFWkeyfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
   new_GLFWkeyfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWkeyfun_cb));
   Dart_Handle old_GLFWkeyfun_cb = Dart_Null();
   if (dart_GLFWkeyfun_cb != NULL) {
-    old_GLFWkeyfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWkeyfun_cb));
+    old_GLFWkeyfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWkeyfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWkeyfun_cb);
   }
   dart_GLFWkeyfun_cb = new_GLFWkeyfun_cb;
@@ -892,18 +1035,14 @@ void glfwSetCharCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWcharfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWcharfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWcharfun_cb));
+  Dart_Handle new_GLFWcharfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWcharfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWcharfun_cb));
   Dart_Handle old_GLFWcharfun_cb = Dart_Null();
   if (dart_GLFWcharfun_cb != NULL) {
-    old_GLFWcharfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWcharfun_cb));
+    old_GLFWcharfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWcharfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWcharfun_cb);
   }
   dart_GLFWcharfun_cb = new_GLFWcharfun_cb;
@@ -925,18 +1064,14 @@ void glfwSetCharModsCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWcharmodsfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWcharmodsfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWcharmodsfun_cb));
+  Dart_Handle new_GLFWcharmodsfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWcharmodsfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWcharmodsfun_cb));
   Dart_Handle old_GLFWcharmodsfun_cb = Dart_Null();
   if (dart_GLFWcharmodsfun_cb != NULL) {
-    old_GLFWcharmodsfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWcharmodsfun_cb));
+    old_GLFWcharmodsfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWcharmodsfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWcharmodsfun_cb);
   }
   dart_GLFWcharmodsfun_cb = new_GLFWcharmodsfun_cb;
@@ -946,8 +1081,7 @@ void glfwSetCharModsCallback_native(Dart_NativeArguments arguments) {
 
 static Dart_Handle dart_GLFWmousebuttonfun_cb = NULL;
 
-void _GLFWmousebuttonfun_cb(GLFWwindow* window, int button, int action,
-                            int mods) {
+void _GLFWmousebuttonfun_cb(GLFWwindow* window, int button, int action, int mods) {
   Dart_Handle arguments[4];
   arguments[0] = HandleError(NewGLFWwindow(window));
   arguments[1] = HandleError(Dart_NewInteger(button));
@@ -960,18 +1094,14 @@ void glfwSetMouseButtonCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWmousebuttonfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWmousebuttonfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWmousebuttonfun_cb));
+  Dart_Handle new_GLFWmousebuttonfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWmousebuttonfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWmousebuttonfun_cb));
   Dart_Handle old_GLFWmousebuttonfun_cb = Dart_Null();
   if (dart_GLFWmousebuttonfun_cb != NULL) {
-    old_GLFWmousebuttonfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWmousebuttonfun_cb));
+    old_GLFWmousebuttonfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWmousebuttonfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWmousebuttonfun_cb);
   }
   dart_GLFWmousebuttonfun_cb = new_GLFWmousebuttonfun_cb;
@@ -993,18 +1123,14 @@ void glfwSetCursorPosCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWcursorposfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWcursorposfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWcursorposfun_cb));
+  Dart_Handle new_GLFWcursorposfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWcursorposfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWcursorposfun_cb));
   Dart_Handle old_GLFWcursorposfun_cb = Dart_Null();
   if (dart_GLFWcursorposfun_cb != NULL) {
-    old_GLFWcursorposfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWcursorposfun_cb));
+    old_GLFWcursorposfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWcursorposfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWcursorposfun_cb);
   }
   dart_GLFWcursorposfun_cb = new_GLFWcursorposfun_cb;
@@ -1025,18 +1151,14 @@ void glfwSetCursorEnterCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWcursorenterfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWcursorenterfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWcursorenterfun_cb));
+  Dart_Handle new_GLFWcursorenterfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWcursorenterfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWcursorenterfun_cb));
   Dart_Handle old_GLFWcursorenterfun_cb = Dart_Null();
   if (dart_GLFWcursorenterfun_cb != NULL) {
-    old_GLFWcursorenterfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWcursorenterfun_cb));
+    old_GLFWcursorenterfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWcursorenterfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWcursorenterfun_cb);
   }
   dart_GLFWcursorenterfun_cb = new_GLFWcursorenterfun_cb;
@@ -1058,18 +1180,14 @@ void glfwSetScrollCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWscrollfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWscrollfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWscrollfun_cb));
+  Dart_Handle new_GLFWscrollfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWscrollfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWscrollfun_cb));
   Dart_Handle old_GLFWscrollfun_cb = Dart_Null();
   if (dart_GLFWscrollfun_cb != NULL) {
-    old_GLFWscrollfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWscrollfun_cb));
+    old_GLFWscrollfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWscrollfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWscrollfun_cb);
   }
   dart_GLFWscrollfun_cb = new_GLFWscrollfun_cb;
@@ -1084,9 +1202,8 @@ void _GLFWdropfun_cb(GLFWwindow* window, int count, const char** paths) {
   arguments[0] = HandleError(NewGLFWwindow(window));
   arguments[1] = HandleError(Dart_NewInteger(count));
   arguments[2] = HandleError(Dart_NewList(count));
-  for (int i = 0; i < count; i++) {
-    HandleError(
-        Dart_ListSetAt(arguments[2], i, Dart_NewStringFromCString(paths[i])));
+  for (int i = 0; i<count; i++) {
+    HandleError(Dart_ListSetAt(arguments[2], i, Dart_NewStringFromCString(paths[i])));
   }
   HandleError(Dart_InvokeClosure(dart_GLFWscrollfun_cb, 3, arguments));
 }
@@ -1096,18 +1213,14 @@ void glfwSetDropCallback_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
-  Dart_Handle new_GLFWdropfun_cb =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-  new_GLFWdropfun_cb =
-      HandleError(Dart_NewPersistentHandle(new_GLFWdropfun_cb));
+  Dart_Handle new_GLFWdropfun_cb = HandleError(Dart_GetNativeArgument(arguments, 1));
+  new_GLFWdropfun_cb = HandleError(Dart_NewPersistentHandle(new_GLFWdropfun_cb));
   Dart_Handle old_GLFWdropfun_cb = Dart_Null();
   if (dart_GLFWdropfun_cb != NULL) {
-    old_GLFWdropfun_cb =
-        HandleError(Dart_HandleFromPersistent(dart_GLFWdropfun_cb));
+    old_GLFWdropfun_cb = HandleError(Dart_HandleFromPersistent(dart_GLFWdropfun_cb));
     Dart_DeletePersistentHandle(dart_GLFWdropfun_cb);
   }
   dart_GLFWdropfun_cb = new_GLFWdropfun_cb;
@@ -1144,8 +1257,7 @@ void glfwSetClipboardString_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   Dart_Handle string_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
@@ -1163,8 +1275,7 @@ void glfwGetClipboardString_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   const char* ret = glfwGetClipboardString(window);
@@ -1192,8 +1303,7 @@ void glfwMakeContextCurrent_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwMakeContextCurrent(window);
@@ -1209,8 +1319,7 @@ void glfwSwapBuffers_native(Dart_NativeArguments arguments) {
 
   GLFWwindow* window = NULL;
   if (!Dart_IsNull(window_obj)) {
-    HandleError(Dart_GetNativeInstanceField(
-        window_obj, 0, reinterpret_cast<intptr_t*>(&window)));
+    HandleError(Dart_GetNativeInstanceField(window_obj, 0, reinterpret_cast<intptr_t *>(&window)));
   }
 
   glfwSwapBuffers(window);
@@ -1237,4 +1346,9 @@ void glfwExtensionSupported_native(Dart_NativeArguments arguments) {
 
   int ret = glfwExtensionSupported(extension);
   Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+}
+
+void glfwVulkanSupported_native(Dart_NativeArguments arguments) {
+  int ret = glfwVulkanSupported();
+  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
 }

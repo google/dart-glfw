@@ -32,13 +32,24 @@ void keypressCallback(
   }
 }
 
+errorFun(int error, String description) {
+  print("ERROR: $error $description");
+}
+
 void main() {
-  glfwInit();
+  glfwSetErrorCallback(errorFun);
+
+  bool ret = glfwInit();
+  print("glfwInit => $ret");
+  print("glfwGetVersionString() => ${glfwGetVersionString()}");
 
   glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 
   GLFWwindow window = glfwCreateWindow(640, 480, "Hello Dart GLFW", null, null);
+  print("window: $window");
+
+  glfwMakeContextCurrent(window);
 
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
@@ -47,8 +58,6 @@ void main() {
 
   glfwSetCharCallback(window, charCallback);
   glfwSetKeyCallback(window, keypressCallback);
-
-  glfwMakeContextCurrent(window);
 
   while (!glfwWindowShouldCloseAsBool(window)) {
     glfwPollEvents();

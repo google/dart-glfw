@@ -9,7 +9,15 @@
 #include "dart_api.h"
 
 template <typename T>
-Dart_Handle NewDartIntList(int size, T* array);
+Dart_Handle NewDartIntList(int size, T* array) {
+  Dart_Handle list_handle = Dart_NewList(size);
+  for (int i = 0; i < size; i++) {
+    Dart_ListSetAt(list_handle, i,
+                   Dart_NewInteger(static_cast<int64_t>(array[i])));
+  }
+  return list_handle;
+}
+
 
 Dart_Handle HandleError(Dart_Handle handle);
 

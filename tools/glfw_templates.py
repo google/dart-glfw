@@ -21,7 +21,7 @@ GLFW_GENERATED_BINDINGS_HEADER_HEADER = GLFW_LICENSE_HEADER + (
     """#ifndef THIRD_PARTY_DART_GLFW_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 #define THIRD_PARTY_DART_GLFW_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
 """)
 
@@ -36,13 +36,13 @@ GLFW_GENERATED_BINDINGS_HEADER = GLFW_LICENSE_HEADER + (
 #include <string.h>
 #include <stdlib.h>
 
-#include "third_party/GL/GLFW/include/GLFW/glfw3.h"
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "GLFW/glfw3.h"
+#include "dart_api.h"
 
 
-#include "third_party/dart/glfw/lib/src/instantiate_glfw_classes.h"
-#include "third_party/dart/glfw/lib/src/util.h"
-#include "third_party/dart/glfw/lib/src/generated/glfw_bindings.h"
+#include "../instantiate_glfw_classes.h"
+#include "../util.h"
+#include "glfw_bindings.h"
 
 """)
 
@@ -65,7 +65,7 @@ GLFW_FUNCTION_LIST_HEADER_BODY = GLFW_LICENSE_HEADER + (
 #ifndef THIRD_PARTY_DART_GLFW_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define THIRD_PARTY_DART_GLFW_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
 struct FunctionLookup {
   const char* name;
@@ -80,11 +80,11 @@ extern const struct FunctionLookup *function_list;
 GLFW_FUNCTION_LIST_HEADER = GLFW_LICENSE_HEADER + (
     """
 #include <stdlib.h>
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
-#include "third_party/dart/glfw/lib/src/manual_bindings.h"
-#include "third_party/dart/glfw/lib/src/generated/function_list.h"
-#include "third_party/dart/glfw/lib/src/generated/glfw_bindings.h"
+#include "../manual_bindings.h"
+#include "function_list.h"
+#include "glfw_bindings.h"
 
 // function_list is used by ResolveName in lib/src/glfw_extension.cc.
 const struct FunctionLookup _function_list[] = {
