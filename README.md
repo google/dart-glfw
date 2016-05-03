@@ -12,7 +12,7 @@ cp generated/* ../lib/src/generated/
 ```
 # Steps to compile the bindings
 
-Set environment variables DART_INCLUDE, GLFW_INCLDUE, and GLFW_LIB.
+Set environment variables DART_SDK, GLFW_INCLUDE, and GLFW_LIB.
 
 ```shell
 cd lib/
