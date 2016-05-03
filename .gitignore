@@ -1,6 +1,8 @@
-# Don’t commit the following directories created by pub.
+# Don’t commit the following files or directories created by pub.
+.packages
+.pub/
 build/
-packages
+packages/
 
 # according to https://www.dartlang.org/tools/pub/package-layout.html
 # pubspec.lock is not included if not application package
@@ -13,7 +15,6 @@ pubspec.lock
 *.js_
 *.js.deps
 *.js.map
-
 
 # Don't commit python bytecode files in the tools/ directory.
 *pyc
