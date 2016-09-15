@@ -48,6 +48,8 @@ Dart_Handle NewRectangle(int left, int top, int width, int height) {
 }
 
 Dart_Handle NewGLFWwindow(GLFWwindow *window) {
+  if (window == NULL) return Dart_Null();
+
   Dart_Handle GLFWwindow_type = HandleError(Dart_GetType(
       GLFWLibrary, Dart_NewStringFromCString("GLFWwindow"), 0, NULL));
 

@@ -49,8 +49,6 @@ void main() {
   GLFWwindow window = glfwCreateWindow(640, 480, "Hello Dart GLFW", null, null);
   print("window: $window");
 
-  glfwMakeContextCurrent(window);
-
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
   glfwSetWindowPosCallback(window, winMoveCallback);
@@ -60,8 +58,14 @@ void main() {
   glfwSetKeyCallback(window, keypressCallback);
 
   while (!glfwWindowShouldCloseAsBool(window)) {
+    // Context can be activated for drawing...
+    glfwMakeContextCurrent(window);
+
     glfwPollEvents();
     glfwSwapBuffers(window);
+
+    // ...and context can be deactivated until later.
+    glfwMakeContextCurrent(null);
   }
   glfwTerminate();
 }
