@@ -6,10 +6,10 @@ requirements that the main thread be the one handling events.
 # Steps to generate the bindings
 ```shell
 mkdir lib/src/generated/
-cd tools
-./generate_bindings.sh
+dart tools/glfw_generator.dart --glfw3_path=<path to glfw3.h>
 cp generated/* ../lib/src/generated/
 ```
+
 # Steps to compile the bindings
 
 Set environment variables DART_SDK, GLFW_INCLUDE, and GLFW_LIB.
@@ -22,10 +22,6 @@ dart ../tools/glfw_compile.dart
 Note that if you set the `GLFW_LIB` variable when compiling, you must also set
 `LD_LIBRARY_PATH` to include the same directory when running your program or
 the Dart VM will not be able to find `libglfw.so`.
-
-TODO(hstern): It is convenient for development to use the .so file,
-but for distribution purposes it is less useful. It would be nice to have an
-option to use the .a library as well.
 
 # Notes about the auto-generated bindings
 
@@ -67,3 +63,9 @@ values. See also lib/src/manual\_bindings.dart.
   - Returns a `List<double>` instance.
 - glfwGetJoystickButtons
   - Returns a `List<int>` instance.
+
+# The following functions are additions to the C GLFW API
+- glfwSwapBuffersAsync
+  - An async version of glfwSwapBuffers that can be `await`-ed. This avoids
+  blocking the current isolate while the glfwSwapBuffers call is waiting to
+  finish.

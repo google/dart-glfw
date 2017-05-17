@@ -23,12 +23,12 @@ List<GLFWmonitor> glfwGetMonitors() native "glfwGetMonitors";
 Point glfwGetMonitorPos(GLFWmonitor monitor) native "glfwGetMonitorPos";
 
 /// Returns a [Rectangle] instance with [xpos] and [ypos] set to 0.
-Rectangle glfwGetMonitorPhysicalSize(
-    GLFWmonitor monitor) native "glfwGetMonitorPhysicalSize";
+Rectangle glfwGetMonitorPhysicalSize(GLFWmonitor monitor)
+    native "glfwGetMonitorPhysicalSize";
 
 /// Returns a [List<GLFWvidmode>] instance.
-List<GLFWvidmode> glfwGetVideoModes(
-    GLFWmonitor monitor) native "glfwGetVideoModes";
+List<GLFWvidmode> glfwGetVideoModes(GLFWmonitor monitor)
+    native "glfwGetVideoModes";
 
 /// Returns a [Point] instance.
 Point glfwGetWindowPos(GLFWwindow window) native "glfwGetWindowPos";
@@ -37,20 +37,20 @@ Point glfwGetWindowPos(GLFWwindow window) native "glfwGetWindowPos";
 Rectangle glfwGetWindowSize(GLFWwindow window) native "glfwGetWindowSize";
 
 /// Returns a [Rectangle] instance with [xpos] and [ypos] set to 0.
-Rectangle glfwGetFramebufferSize(
-    GLFWwindow window) native "glfwGetFramebufferSize";
+Rectangle glfwGetFramebufferSize(GLFWwindow window)
+    native "glfwGetFramebufferSize";
 
 /// Returns a [Rectangle] instance.
-Rectangle glfwGetWindowFrameSize(
-    GLFWwindow window) native "glfwGetWindowFrameSize";
+Rectangle glfwGetWindowFrameSize(GLFWwindow window)
+    native "glfwGetWindowFrameSize";
 
 /// [pointer] parameter is a Dart [Object].
-void glfwSetWindowUserPointer(
-    GLFWwindow window, Object pointer) native "glfwSetWindowUserPointer";
+void glfwSetWindowUserPointer(GLFWwindow window, Object pointer)
+    native "glfwSetWindowUserPointer";
 
 /// Returns an [Object] instance.
-Object glfwGetWindowUserPointer(
-    GLFWwindow window) native "glfwGetWindowUserPointer";
+Object glfwGetWindowUserPointer(GLFWwindow window)
+    native "glfwGetWindowUserPointer";
 
 /// Returns a [Point] instance.
 Point glfwGetCursorPos(GLFWwindow window) native "glfwGetCursorPos";
@@ -60,3 +60,58 @@ List<double> glfwGetJoystickAxes(int joy) native "glfwGetJoystickAxes";
 
 /// Returns a [List<int>] instance.
 List<int> glfwGetJoystickButtons(int joy) native "glfwGetJoystickButtons";
+
+// Async calls.
+SendPort _swapBuffersPort;
+
+/// Sets up a service port for async requests to glfwSwapBufers().
+SendPort createSwapBuffersServicePort() native "CreateSwapBuffersServicePort";
+
+/// Makes an asynchronous call to glfwSwapBuffers().
+///
+/// The returned [Future] will complete when the native call is finished.
+///
+/// NOTE: There must not be any GL context bound before calling
+/// glfwSwapBuffersAsync(). This is because glfwSwapBuffersAsync() will attempt
+/// to acquire the context before swapping (a requirement for the implicit
+/// glFlush() performed by the SwapBuffers call).
+///
+/// A typical usage pattern is:
+///
+/// ```
+/// glfwMakeContextCurrent(window);
+///
+/// // (perform rendering)
+///
+/// glfwMakeContextCurrent(null);
+/// await glfwSwapBuffers(window);
+/// ```
+Future glfwSwapBuffersAsync(GLFWwindow window) async {
+  assert(glfwGetCurrentContext() == null,
+      "glfwSwapBuffersAsync() requires the current context to be null.");
+
+  // Set up the Dart Port to handle swap buffers calls, if necessary.
+  _swapBuffersPort ??= createSwapBuffersServicePort();
+
+  // Send the SendPort and arguments to the native function wrapper.
+  int windowPtr = window._native_pointer;
+  await _asyncCall(_swapBuffersPort, [windowPtr]);
+}
+
+/// Helper for asynchronous calls.
+Future _asyncCall(SendPort sendPort, Iterable args) async {
+  // Create the port that will receive the results from the native call.
+  var replyPort = new ReceivePort();
+
+  // Create the argument list, placing the sending side of the reply port
+  // first, followed by the given arguments.
+  var argsList = <dynamic>[replyPort.sendPort];
+  argsList.addAll(args);
+
+  // Send the arguments to invoke the function that is bound to the given
+  // SendPort.
+  sendPort.send(argsList);
+
+  // Wait for the result, and return it.
+  return await replyPort.first;
+}

@@ -13,18 +13,18 @@
 /// for more detail.
 library glfw;
 
-import 'dart:nativewrappers';
+import 'dart:async';
+import 'dart:isolate';
 
 import 'dart-ext:glfw_extension';
 
 import 'dart:math' show Point, Rectangle;
 
+export 'src/generated/glfw_constants.dart';
+
 part 'src/glfw_classes.dart';
 part 'src/manual_bindings.dart';
-part 'src/generated/glfw_constants.dart';
 part 'src/generated/glfw_native_functions.dart';
-
-class OpaquePointer extends NativeFieldWrapperClass1 {}
 
 /// Checks the close flag of the specified [GLFWwindow] and returns either
 /// [true] or [false].

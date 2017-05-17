@@ -53,36 +53,30 @@ Dart_Handle NewGLFWwindow(GLFWwindow *window) {
   Dart_Handle GLFWwindow_type = HandleError(Dart_GetType(
       GLFWLibrary, Dart_NewStringFromCString("GLFWwindow"), 0, NULL));
 
-  intptr_t fields[1];
-  fields[0] = reinterpret_cast<intptr_t>(window);
-  Dart_Handle window_obj =
-      HandleError(Dart_AllocateWithNativeFields(GLFWwindow_type, 1, fields));
-  return HandleError(Dart_InvokeConstructor(
-      window_obj, Dart_NewStringFromCString(""), 0, NULL));
+  Dart_Handle args[1];
+  intptr_t ptr_value = reinterpret_cast<intptr_t>(window);
+  args[0] = Dart_NewInteger(static_cast<int64_t>(ptr_value));
+  return HandleError(Dart_New(GLFWwindow_type, Dart_Null(), 1, args));
 }
 
 Dart_Handle NewGLFWmonitor(GLFWmonitor *monitor) {
   Dart_Handle GLFWmonitor_type = HandleError(Dart_GetType(
       GLFWLibrary, Dart_NewStringFromCString("GLFWmonitor"), 0, NULL));
 
-  intptr_t fields[1];
-  fields[0] = reinterpret_cast<intptr_t>(monitor);
-  Dart_Handle monitor_obj =
-      HandleError(Dart_AllocateWithNativeFields(GLFWmonitor_type, 1, fields));
-  return HandleError(Dart_InvokeConstructor(
-      monitor_obj, Dart_NewStringFromCString(""), 0, NULL));
+  Dart_Handle args[1];
+  intptr_t ptr_value = reinterpret_cast<intptr_t>(monitor);
+  args[0] = Dart_NewInteger(static_cast<int64_t>(ptr_value));
+  return HandleError(Dart_New(GLFWmonitor_type, Dart_Null(), 1, args));
 }
 
 Dart_Handle NewGLFWcursor(GLFWcursor *cursor) {
   Dart_Handle GLFWcursor_type = HandleError(Dart_GetType(
       GLFWLibrary, Dart_NewStringFromCString("GLFWcursor"), 0, NULL));
 
-  intptr_t fields[1];
-  fields[0] = reinterpret_cast<intptr_t>(cursor);
-  Dart_Handle cursor_obj =
-      HandleError(Dart_AllocateWithNativeFields(GLFWcursor_type, 1, fields));
-  return HandleError(Dart_InvokeConstructor(
-      cursor_obj, Dart_NewStringFromCString(""), 0, NULL));
+  Dart_Handle args[1];
+  intptr_t ptr_value = reinterpret_cast<intptr_t>(cursor);
+  args[0] = Dart_NewInteger(static_cast<int64_t>(ptr_value));
+  return HandleError(Dart_New(GLFWcursor_type, Dart_Null(), 1, args));
 }
 
 Dart_Handle NewGLFWvidmode(const GLFWvidmode *vidmode) {

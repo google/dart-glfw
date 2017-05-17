@@ -6,6 +6,7 @@
 #ifndef SRC_MANUAL_BINDINGS_H_
 #define SRC_MANUAL_BINDINGS_H_
 #include "dart_api.h"
+#include "dart_native_api.h"
 
 void glfwGetVersion_native(Dart_NativeArguments arguments);
 void glfwGetMonitors_native(Dart_NativeArguments arguments);
@@ -21,5 +22,8 @@ void glfwGetWindowUserPointer_native(Dart_NativeArguments arguments);
 void glfwGetCursorPos_native(Dart_NativeArguments arguments);
 void glfwGetJoystickAxes_native(Dart_NativeArguments arguments);
 void glfwGetJoystickButtons_native(Dart_NativeArguments arguments);
+
+// Async wrappers. These are handlers for asynchronous native calls from Dart.
+void glfwSwapBuffers_wrapper(Dart_Port dest_port, Dart_CObject* message);
 
 #endif  // SRC_MANUAL_BINDINGS_H_

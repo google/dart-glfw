@@ -5,19 +5,30 @@
 
 part of glfw;
 
-/// An opaque GLFW object representing a monitor.
-class GLFWmonitor extends OpaquePointer {
-  GLFWmonitor();
+/// An opaque pointer to a GLFW object.
+abstract class GLFWpointer {
+  int get _native_pointer;
 }
 
-/// An opaque GLFW object representing a window.
-class GLFWwindow extends OpaquePointer {
-  GLFWwindow();
+/// A GLFWpointer implementation representing a monitor.
+class GLFWmonitor implements GLFWpointer {
+  final int _native_pointer;
+  GLFWmonitor(this._native_pointer);
+  String toString() => "GLFWmonitor(0x${_native_pointer.toRadixString(16)})";
 }
 
-/// An opaque GLFW object representing a cursor.
-class GLFWcursor extends OpaquePointer {
-  GLFWcursor();
+/// A GLFWpointer implementation representing a window.
+class GLFWwindow {
+  final int _native_pointer;
+  GLFWwindow(this._native_pointer);
+  String toString() => "GLFWwindow(0x${_native_pointer.toRadixString(16)})";
+}
+
+/// A GLFWpointer implementation representing a cursor.
+class GLFWcursor {
+  final int _native_pointer;
+  GLFWcursor(this._native_pointer);
+  String toString() => "GLFWcursor(0x${_native_pointer.toRadixString(16)})";
 }
 
 /// A class mirroring the `GLFWvidmode` struct defined in `<GLFW/glfw3.h>`
@@ -54,6 +65,7 @@ class GLFWgammaramp {
 class GLFWimage {
   int width;
   int height;
+
   /// A list of pixel color values in RGBA format
   List<int> pixels;
   GLFWimage(this.width, this.height, this.pixels);

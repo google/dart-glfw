@@ -32,22 +32,13 @@ void keypressCallback(
   }
 }
 
-errorFun(int error, String description) {
-  print("ERROR: $error $description");
-}
-
-void main() {
-  glfwSetErrorCallback(errorFun);
-
-  bool ret = glfwInit();
-  print("glfwInit => $ret");
-  print("glfwGetVersionString() => ${glfwGetVersionString()}");
+main() async {
+  glfwInit();
 
   glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 
   GLFWwindow window = glfwCreateWindow(640, 480, "Hello Dart GLFW", null, null);
-  print("window: $window");
 
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
@@ -62,10 +53,12 @@ void main() {
     glfwMakeContextCurrent(window);
 
     glfwPollEvents();
-    glfwSwapBuffers(window);
 
-    // ...and context can be deactivated until later.
+    // Must release context before calling glfwSwapBuffersAsync().
     glfwMakeContextCurrent(null);
+
+    // Wait for buffer swap.
+    await glfwSwapBuffersAsync(window);
   }
   glfwTerminate();
 }

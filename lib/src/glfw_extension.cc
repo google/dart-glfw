@@ -55,5 +55,13 @@ Dart_NativeFunction ResolveName(Dart_Handle name, int argc,
       break;
     }
   }
+
+  if (result == NULL) {
+    // Didn't find it in the function list. Try service port functions.
+    if (strcmp("CreateSwapBuffersServicePort", cname) == 0) {
+      result = CreateSwapBuffersServicePort;
+    }
+  }
+
   return result;
 }

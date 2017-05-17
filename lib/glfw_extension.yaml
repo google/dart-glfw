@@ -20,11 +20,12 @@ linker:
 platforms:
   linux:
     compiler:
-      arguments: ['-fPIC', '-Wall', '-Werror']
+      arguments: ['-fPIC', '-Wall', '-Werror', '-std=c++11']
       defines: {'DART_SHARED_LIB'}
     linker:
       arguments: ['-shared', '-lglfw']
       output_file: 'libglfw_extension.so'
+      libpaths: ['{DART_SDK}/bin', '{GLFW_LIB}']
   macos:
     compiler:
       arguments: ['-fPIC', '-Wall']
