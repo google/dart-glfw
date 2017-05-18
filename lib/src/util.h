@@ -9,7 +9,7 @@
 #include "dart_api.h"
 
 #if defined(GLFW_TRACING)
-#include "third_party/dart_lang/runtime/include/dart_tools_api.h"
+#include "dart_tools_api.h"
 #define TRACE_START(name)                                \
   Dart_TimelineEvent(#name, Dart_TimelineGetMicros(), 0, \
                      Dart_Timeline_Event_Begin, 0, NULL, NULL)
