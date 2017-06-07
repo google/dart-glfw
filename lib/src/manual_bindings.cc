@@ -240,13 +240,19 @@ void glfwSwapBuffers_wrapper(Dart_Port dest_port, Dart_CObject* message) {
   Dart_Port reply_port = param0->value.as_send_port.id;
 
   Dart_CObject* param1 = message->value.as_array.values[1];
-  if (param1->type != Dart_CObject_kInt64) {
-    fprintf(stderr, "Expected an int64 as the second argument.\n");
-    PostNull(reply_port);
-    return;
+  GLFWwindow* window;
+  switch (param1->type) {
+    case Dart_CObject_kInt32:
+      window = reinterpret_cast<GLFWwindow*>(param1->value.as_int32);
+      break;
+    case Dart_CObject_kInt64:
+      window = reinterpret_cast<GLFWwindow*>(param1->value.as_int64);
+      break;
+    default:
+      fprintf(stderr, "Expected an int64 or int32 as the second argument, is: %d.\n", param1->type);
+      PostNull(reply_port);
+      return;
   }
-
-  GLFWwindow* window = reinterpret_cast<GLFWwindow*>(param1->value.as_int64);
   if (window == NULL) {
     fprintf(stderr, "Window is null.\n");
     PostNull(reply_port);
