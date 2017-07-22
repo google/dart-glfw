@@ -9,6 +9,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 
 #include "GLFW/glfw3.h"
 #include "dart_api.h"
