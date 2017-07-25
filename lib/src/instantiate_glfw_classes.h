@@ -6,8 +6,8 @@
 #ifndef DART_GLFW_LIB_SRC_INSTANTIATE_GLFW_CLASSES_H_
 #define DART_GLFW_LIB_SRC_INSTANTIATE_GLFW_CLASSES_H_
 
-#include <dart_api.h>
 #include <GLFW/glfw3.h>
+#include <dart_api.h>
 
 Dart_Handle NewPoint(int x, int y);
 Dart_Handle NewRectangle(int left, int top, int width, int height);

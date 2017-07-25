@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <dart_api.h>
 #include <GLFW/glfw3.h>
+#include <dart_api.h>
 
 #include "generated/function_list.h"
 #include "generated/glfw_bindings.h"
