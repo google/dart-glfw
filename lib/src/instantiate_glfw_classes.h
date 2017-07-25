@@ -3,11 +3,11 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-#ifndef SRC_INSTANTIATE_GLFW_CLASSES_H_
-#define SRC_INSTANTIATE_GLFW_CLASSES_H_
+#ifndef DART_GLFW_LIB_SRC_INSTANTIATE_GLFW_CLASSES_H_
+#define DART_GLFW_LIB_SRC_INSTANTIATE_GLFW_CLASSES_H_
 
-#include "GLFW/glfw3.h"
-#include "dart_api.h"
+#include <dart_api.h>
+#include <GLFW/glfw3.h>
 
 Dart_Handle NewPoint(int x, int y);
 Dart_Handle NewRectangle(int left, int top, int width, int height);
@@ -24,4 +24,4 @@ GLFWvidmode *NewGLFWvidmodeFromDart(Dart_Handle vidmode_handle);
 GLFWgammaramp *NewGLFWgammarampFromDart(Dart_Handle gammaramp_handle);
 GLFWimage *NewGLFWimageFromDart(Dart_Handle image_handle);
 
-#endif  // SRC_INSTANTIATE_GLFW_CLASSES_H_
+#endif  // DART_GLFW_LIB_SRC_INSTANTIATE_GLFW_CLASSES_H_

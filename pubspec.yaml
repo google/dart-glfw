@@ -1,7 +1,11 @@
 name: glfw
-version: "1.0.0"
+version: "1.0.1"
 description: Dart GLFW bindings
-author: Harry Stern <hstern@google.com>
+authors:
+  - John McDole <codefu@google.com>
+  - Jason Daly <dalyj@google.com>
+  - Michael McLennan <nefario@google.com>
+  - Harry Stern <hstern@google.com>
 homepage:
 environment:
   sdk: ">=1.10.0"

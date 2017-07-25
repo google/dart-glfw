@@ -14,6 +14,7 @@
 
 void glfwInit_native(Dart_NativeArguments arguments);
 void glfwTerminate_native(Dart_NativeArguments arguments);
+void glfwInitHint_native(Dart_NativeArguments arguments);
 void glfwGetVersionString_native(Dart_NativeArguments arguments);
 void glfwSetErrorCallback_native(Dart_NativeArguments arguments);
 void glfwGetPrimaryMonitor_native(Dart_NativeArguments arguments);
@@ -44,6 +45,7 @@ void glfwFocusWindow_native(Dart_NativeArguments arguments);
 void glfwGetWindowMonitor_native(Dart_NativeArguments arguments);
 void glfwSetWindowMonitor_native(Dart_NativeArguments arguments);
 void glfwGetWindowAttrib_native(Dart_NativeArguments arguments);
+void glfwSetWindowAttrib_native(Dart_NativeArguments arguments);
 void glfwSetWindowPosCallback_native(Dart_NativeArguments arguments);
 void glfwSetWindowSizeCallback_native(Dart_NativeArguments arguments);
 void glfwSetWindowCloseCallback_native(Dart_NativeArguments arguments);
@@ -58,6 +60,7 @@ void glfwPostEmptyEvent_native(Dart_NativeArguments arguments);
 void glfwGetInputMode_native(Dart_NativeArguments arguments);
 void glfwSetInputMode_native(Dart_NativeArguments arguments);
 void glfwGetKeyName_native(Dart_NativeArguments arguments);
+void glfwGetKeyScancode_native(Dart_NativeArguments arguments);
 void glfwGetKey_native(Dart_NativeArguments arguments);
 void glfwGetMouseButton_native(Dart_NativeArguments arguments);
 void glfwSetCursorPos_native(Dart_NativeArguments arguments);

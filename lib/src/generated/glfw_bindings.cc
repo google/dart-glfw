@@ -9,8 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "GLFW/glfw3.h"
-#include "dart_api.h"
+#include <GLFW/glfw3.h>
+#include <dart_api.h>
 
 #include "../instantiate_glfw_classes.h"
 #include "../util.h"
@@ -30,6 +30,19 @@ void glfwTerminate_native(Dart_NativeArguments arguments) {
   glfwTerminate();
 
   TRACE_END(glfwTerminate_);
+}
+
+void glfwInitHint_native(Dart_NativeArguments arguments) {
+  TRACE_START(glfwInitHint_);
+  int64_t hint;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &hint));
+
+  int64_t value;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &value));
+
+  glfwInitHint(hint, value);
+
+  TRACE_END(glfwInitHint_);
 }
 
 void glfwGetVersionString_native(Dart_NativeArguments arguments) {
@@ -458,6 +471,22 @@ void glfwGetWindowAttrib_native(Dart_NativeArguments arguments) {
   TRACE_END(glfwGetWindowAttrib_);
 }
 
+void glfwSetWindowAttrib_native(Dart_NativeArguments arguments) {
+  TRACE_START(glfwSetWindowAttrib_);
+  Dart_Handle window_obj = HANDLE(Dart_GetNativeArgument(arguments, 0));
+  GLFWwindow* window = GetNativePointer<GLFWwindow>(window_obj);
+
+  int64_t attrib;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &attrib));
+
+  int64_t value;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &value));
+
+  glfwSetWindowAttrib(window, attrib, value);
+
+  TRACE_END(glfwSetWindowAttrib_);
+}
+
 static Dart_Handle dart_GLFWwindowposfun_cb = NULL;
 
 void _GLFWwindowposfun_cb(GLFWwindow* window, int xpos, int ypos) {
@@ -719,6 +748,16 @@ void glfwGetKeyName_native(Dart_NativeArguments arguments) {
   const char* ret = glfwGetKeyName(key, scancode);
   Dart_SetReturnValue(arguments, HANDLE(Dart_NewStringFromCString(ret)));
   TRACE_END(glfwGetKeyName_);
+}
+
+void glfwGetKeyScancode_native(Dart_NativeArguments arguments) {
+  TRACE_START(glfwGetKeyScancode_);
+  int64_t key;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &key));
+
+  int ret = glfwGetKeyScancode(key);
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glfwGetKeyScancode_);
 }
 
 void glfwGetKey_native(Dart_NativeArguments arguments) {
@@ -1046,20 +1085,20 @@ void glfwSetDropCallback_native(Dart_NativeArguments arguments) {
 }
 void glfwJoystickPresent_native(Dart_NativeArguments arguments) {
   TRACE_START(glfwJoystickPresent_);
-  int64_t joy;
-  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &joy));
+  int64_t jid;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &jid));
 
-  int ret = glfwJoystickPresent(joy);
+  int ret = glfwJoystickPresent(jid);
   Dart_SetBooleanReturnValue(arguments, ret);
   TRACE_END(glfwJoystickPresent_);
 }
 
 void glfwGetJoystickName_native(Dart_NativeArguments arguments) {
   TRACE_START(glfwGetJoystickName_);
-  int64_t joy;
-  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &joy));
+  int64_t jid;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &jid));
 
-  const char* ret = glfwGetJoystickName(joy);
+  const char* ret = glfwGetJoystickName(jid);
   Dart_SetReturnValue(arguments, HANDLE(Dart_NewStringFromCString(ret)));
   TRACE_END(glfwGetJoystickName_);
 }
