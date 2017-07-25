@@ -3,18 +3,17 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
+#include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <string.h>
 
-#include "GLFW/glfw3.h"
-#include "dart_api.h"
+#include <dart_api.h>
 
-#include "glfw_extension.h"
-
-#include "manual_bindings.h"
-#include "util.h"
 #include "generated/function_list.h"
 #include "generated/glfw_bindings.h"
+#include "glfw_extension.h"
+#include "manual_bindings.h"
+#include "util.h"
 
 Dart_Handle GLFWLibrary;
 Dart_Handle MathLibrary;

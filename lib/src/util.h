@@ -3,8 +3,8 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-#ifndef SRC_UTIL_H_
-#define SRC_UTIL_H_
+#ifndef DART_GLFW_LIB_SRC_UTIL_H_
+#define DART_GLFW_LIB_SRC_UTIL_H_
 
 #include "dart_api.h"
 
@@ -66,4 +66,4 @@ Dart_Handle Dart_IntegerToUChar(Dart_Handle integer, unsigned char* value);
 
 void CreateSwapBuffersServicePort(Dart_NativeArguments args);
 
-#endif  // SRC_UTIL_H_
+#endif  // DART_GLFW_LIB_SRC_UTIL_H_

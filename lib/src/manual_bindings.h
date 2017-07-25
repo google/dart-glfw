@@ -3,8 +3,9 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-#ifndef SRC_MANUAL_BINDINGS_H_
-#define SRC_MANUAL_BINDINGS_H_
+#ifndef DART_GLFW_LIB_SRC_MANUAL_BINDINGS_H_
+#define DART_GLFW_LIB_SRC_MANUAL_BINDINGS_H_
+
 #include "dart_api.h"
 #include "dart_native_api.h"
 
@@ -26,4 +27,4 @@ void glfwGetJoystickButtons_native(Dart_NativeArguments arguments);
 // Async wrappers. These are handlers for asynchronous native calls from Dart.
 void glfwSwapBuffers_wrapper(Dart_Port dest_port, Dart_CObject* message);
 
-#endif  // SRC_MANUAL_BINDINGS_H_
+#endif  // DART_GLFW_LIB_SRC_MANUAL_BINDINGS_H_

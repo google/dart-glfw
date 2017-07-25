@@ -31,6 +31,7 @@ typedef void GLFWjoystickfun(int joy, int event);
 
 bool glfwInit() native "glfwInit";
 void glfwTerminate() native "glfwTerminate";
+void glfwInitHint(int hint, int value) native "glfwInitHint";
 String glfwGetVersionString() native "glfwGetVersionString";
 GLFWerrorfun glfwSetErrorCallback(GLFWerrorfun cbfun)
     native "glfwSetErrorCallback";
@@ -81,6 +82,8 @@ void glfwSetWindowMonitor(
     int refreshRate) native "glfwSetWindowMonitor";
 int glfwGetWindowAttrib(GLFWwindow window, int attrib)
     native "glfwGetWindowAttrib";
+void glfwSetWindowAttrib(GLFWwindow window, int attrib, int value)
+    native "glfwSetWindowAttrib";
 GLFWwindowposfun glfwSetWindowPosCallback(GLFWwindow window,
     GLFWwindowposfun cbfun) native "glfwSetWindowPosCallback";
 GLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow window,
@@ -103,6 +106,7 @@ int glfwGetInputMode(GLFWwindow window, int mode) native "glfwGetInputMode";
 void glfwSetInputMode(GLFWwindow window, int mode, int value)
     native "glfwSetInputMode";
 String glfwGetKeyName(int key, int scancode) native "glfwGetKeyName";
+int glfwGetKeyScancode(int key) native "glfwGetKeyScancode";
 int glfwGetKey(GLFWwindow window, int key) native "glfwGetKey";
 int glfwGetMouseButton(GLFWwindow window, int button)
     native "glfwGetMouseButton";
@@ -130,8 +134,8 @@ GLFWscrollfun glfwSetScrollCallback(GLFWwindow window, GLFWscrollfun cbfun)
     native "glfwSetScrollCallback";
 GLFWdropfun glfwSetDropCallback(GLFWwindow window, GLFWdropfun cbfun)
     native "glfwSetDropCallback";
-bool glfwJoystickPresent(int joy) native "glfwJoystickPresent";
-String glfwGetJoystickName(int joy) native "glfwGetJoystickName";
+bool glfwJoystickPresent(int jid) native "glfwJoystickPresent";
+String glfwGetJoystickName(int jid) native "glfwGetJoystickName";
 GLFWjoystickfun glfwSetJoystickCallback(GLFWjoystickfun cbfun)
     native "glfwSetJoystickCallback";
 void glfwSetClipboardString(GLFWwindow window, String string)
