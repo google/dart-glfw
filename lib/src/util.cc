@@ -6,14 +6,14 @@
 // This file contains GLFW-independent utility functions for
 // Dart native extensions.
 
+#include <inttypes.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <inttypes.h>
 
+#include <GLFW/glfw3.h>
 #include <dart_api.h>
 #include <dart_native_api.h>
-#include <GLFW/glfw3.h>
 
 #include "manual_bindings.h"
 #include "util.h"

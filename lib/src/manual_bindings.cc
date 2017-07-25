@@ -11,8 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <dart_api.h>
 #include <GLFW/glfw3.h>
+#include <dart_api.h>
 
 #include "instantiate_glfw_classes.h"
 #include "manual_bindings.h"
@@ -249,7 +249,9 @@ void glfwSwapBuffers_wrapper(Dart_Port dest_port, Dart_CObject* message) {
       window = reinterpret_cast<GLFWwindow*>(param1->value.as_int64);
       break;
     default:
-      fprintf(stderr, "Expected an int64 or int32 as the second argument, is: %d.\n", param1->type);
+      fprintf(stderr,
+              "Expected an int64 or int32 as the second argument, is: %d.\n",
+              param1->type);
       PostNull(reply_port);
       return;
   }

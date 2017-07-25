@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <dart_api.h>
 #include <GLFW/glfw3.h>
+#include <dart_api.h>
 
 #include "glfw_extension.h"
 #include "instantiate_glfw_classes.h"
