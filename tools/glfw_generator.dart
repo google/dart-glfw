@@ -7,12 +7,15 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as path;
 import 'package:quiver/collection.dart';
 
+String outPath;
 main(List<String> args) async {
   var parser = new ArgParser()
     ..addOption('glfw3_path',
         help: 'path to directory containing glfw3.h',
         abbr: 'g',
         valueHelp: 'path')
+    ..addOption('out',
+        help: 'path to output directory', abbr: 'o', valueHelp: 'path')
     ..addFlag('dev_print_maps',
         help: 'extension development: prints unused and used keys for mappings',
         hide: true)
@@ -34,7 +37,11 @@ main(List<String> args) async {
   }
   var glfwPath = results['glfw3_path'];
 
-  await new Directory('generated').create();
+  outPath = 'generated';
+  if (results.wasParsed('out')) {
+    outPath = results['out'];
+  }
+  outPath = (await new Directory('$outPath').create()).path;
 
   var defines = [];
   var calls = [];
@@ -431,7 +438,7 @@ Map _newHandleMap = <String, NewHandle>{
 };
 
 writeFunctionListH(List<CDecl> decls) async =>
-    new File('generated/function_list.h').writeAsString('''
+    new File('$outPath/function_list.h').writeAsString('''
 $copyright
 #ifndef DART_GLFW_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define DART_GLFW_LIB_SRC_GENERATED_FUNCTION_LIST_H_
@@ -449,7 +456,7 @@ extern const struct FunctionLookup *function_list;
 ''');
 
 writeConstantsDart(List<CConst> consts) async {
-  var sink = new File('generated/glfw_constants.dart').openWrite()
+  var sink = new File('$outPath/glfw_constants.dart').openWrite()
     ..write(copyright)
     ..writeln('\n// Generated GLFW constants.')
     ..writeAll(consts, '\n');
@@ -457,7 +464,7 @@ writeConstantsDart(List<CConst> consts) async {
 }
 
 writeNativeFunctions(List<CDecl> decls) async {
-  var sink = new File('generated/glfw_native_functions.dart').openWrite()
+  var sink = new File('$outPath/glfw_native_functions.dart').openWrite()
     ..write(copyright)
     ..writeln()
     ..writeln('/// Dart definitions for GLFW native extension.')
@@ -491,7 +498,7 @@ writeFunctionListC(List<CDecl> decls) async {
       '${c.needsManualBinding && !c.hasManualBinding ? "// " : ""}'
       '{"${c.name}", ${c.nativeName}},';
 
-  var sink = new File('generated/function_list.cc').openWrite()
+  var sink = new File('$outPath/function_list.cc').openWrite()
     ..write(copyright)
     ..write('''
 
@@ -515,7 +522,7 @@ const struct FunctionLookup *function_list = _function_list;
 }
 
 writeBindingsH(List<CDecl> decls) async {
-  var sink = new File('generated/glfw_bindings.h').openWrite()
+  var sink = new File('$outPath/glfw_bindings.h').openWrite()
     ..write(copyright)
     ..write('''
 
@@ -639,7 +646,7 @@ void $realCb($c_args) {
 /// Writes out native C functions that handle unboxing Dart arguments and
 /// calling the real library methods.
 writeBindingsC(List<CDecl> decls) async {
-  var sink = new File('generated/glfw_bindings.cc').openWrite();
+  var sink = new File('$outPath/glfw_bindings.cc').openWrite();
 
   sink..write(copyright)..write('''
 

@@ -3,11 +3,11 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-#include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <string.h>
 
 #include <dart_api.h>
+#include <GLFW/glfw3.h>
 
 #include "generated/function_list.h"
 #include "generated/glfw_bindings.h"

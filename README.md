@@ -5,9 +5,11 @@ requirements that the main thread be the one handling events.
 
 # Steps to generate the bindings
 ```shell
-mkdir lib/src/generated/
-dart tools/glfw_generator.dart --glfw3_path=<path to glfw3.h>
-cp generated/* ../lib/src/generated/
+mkdir -p lib/src/generated/
+pub run tools/glfw_generator.dart --glfw3_path=<path to glfw3.h>
+clang-format -i --style=Google generated/*.{cc,h}
+dartfmt -w generated/*.dart
+mv generated/* lib/src/generated/*
 ```
 
 # Steps to compile the bindings
