@@ -97,10 +97,10 @@ const String copyright = '''
 ''';
 
 /// Delegate Map that tracks used keys.
-class MapTracker extends DelegatingMap {
+class MapTracker<K, V> extends DelegatingMap<K, V> {
   static Map maps = <String, Map>{};
 
-  Map delegate;
+  Map<K, V> delegate;
   MapTracker(String name, this.delegate) {
     maps[name] = this;
   }
@@ -733,7 +733,7 @@ ${glfwHandleC[dartArg.left](dartArg.left, arg.right)}
     var retHandle = "";
     if (decl.returnType != "void") {
       ret = '  ${decl.returnType} ret = ';
-      var mapper = dartTypeToRet[decl.dartReturnType];
+      Function mapper = dartTypeToRet[decl.dartReturnType];
       if (mapper == null) {
         mapper = newHandleMap[decl.returnType];
         if (mapper != null) {
