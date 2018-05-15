@@ -25,10 +25,14 @@
   } while (0)
 #endif
 
+Dart_Handle HandleError(Dart_Handle handle);
+
 #if defined(GLFW_TESTING)
 #define HANDLE(handle) HandleError(handle)
+#define HANDLE_INVOKE(handle) HandleError(handle)
 #else
 #define HANDLE(handle) handle
+#define HANDLE_INVOKE(handle) (void)handle
 #endif
 
 // Constructs a new Dart List of integers with the given size and data.
@@ -55,8 +59,6 @@ T* GetNativePointer(Dart_Handle obj) {
   intptr_t ptr_value = static_cast<intptr_t>(native_value);
   return reinterpret_cast<T*>(ptr_value);
 }
-
-Dart_Handle HandleError(Dart_Handle handle);
 
 Dart_Handle Dart_IntegerToInt(Dart_Handle integer, int* value);
 // NOLINTNEXTLINE

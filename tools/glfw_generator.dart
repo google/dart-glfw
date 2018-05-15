@@ -356,7 +356,7 @@ void _GLFWdropfun_cb(GLFWwindow* window, int count, const char** paths) {
   for (int i = 0; i<count; i++) {
     HANDLE(Dart_ListSetAt(arguments[2], i, Dart_NewStringFromCString(paths[i])));
   }
-  HANDLE(Dart_InvokeClosure(dart_GLFWscrollfun_cb, 3, arguments));
+  HANDLE_INVOKE(Dart_InvokeClosure(dart_GLFWscrollfun_cb, 3, arguments));
 }
 '''
 };
@@ -597,7 +597,7 @@ void $realCb($c_args) {
       i++;
     }
     sbuff.writeln('''
-  HANDLE(Dart_InvokeClosure(dart_${cbType}_cb, $size, arguments));
+  HANDLE_INVOKE(Dart_InvokeClosure(dart_${cbType}_cb, $size, arguments));
 }''');
   }
 
