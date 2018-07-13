@@ -9,6 +9,7 @@
 #include "dart_api.h"
 
 extern Dart_Handle GLFWLibrary;
+extern Dart_Handle CoreLibrary;
 extern Dart_Handle MathLibrary;
 
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc,

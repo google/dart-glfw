@@ -14,6 +14,7 @@
 #include <GLFW/glfw3.h>
 #include <dart_api.h>
 
+#include "glfw_extension.h"
 #include "instantiate_glfw_classes.h"
 #include "manual_bindings.h"
 #include "util.h"
@@ -36,12 +37,14 @@ void glfwGetMonitors_native(Dart_NativeArguments arguments) {
     return;
   }
 
-  Dart_Handle monlist = Dart_NewList(count);
+  Dart_Handle monitor_type = HandleError(Dart_GetType(
+      GLFWLibrary, Dart_NewStringFromCString("GLFWmonitor"), 0, NULL));
+  Dart_Handle monitor_list = Dart_NewListOfType(monitor_type, count);
   for (int i = 0; i < count; i++) {
-    Dart_ListSetAt(monlist, i, NewGLFWmonitor(monitors[i]));
+    Dart_ListSetAt(monitor_list, i, NewGLFWmonitor(monitors[i]));
   }
 
-  Dart_SetReturnValue(arguments, monlist);
+  Dart_SetReturnValue(arguments, monitor_list);
   TRACE_END(glfwGetMonitors_);
 }
 
@@ -79,11 +82,13 @@ void glfwGetVideoModes_native(Dart_NativeArguments arguments) {
   int count;
   const GLFWvidmode* vidmodes = glfwGetVideoModes(monitor, &count);
 
-  Dart_Handle vidlist = Dart_NewList(count);
+  Dart_Handle vidmode_type = HandleError(Dart_GetType(
+      GLFWLibrary, Dart_NewStringFromCString("GLFWvidmode"), 0, NULL));
+  Dart_Handle vidmode_list = Dart_NewListOfType(vidmode_type, count);
   for (int i = 0; i < count; i++) {
-    Dart_ListSetAt(vidlist, i, NewGLFWvidmode(&vidmodes[i]));
+    Dart_ListSetAt(vidmode_list, i, NewGLFWvidmode(&vidmodes[i]));
   }
-  Dart_SetReturnValue(arguments, vidlist);
+  Dart_SetReturnValue(arguments, vidmode_list);
   TRACE_END(glfwGetVideoModes_);
 }
 
@@ -195,11 +200,13 @@ void glfwGetJoystickAxes_native(Dart_NativeArguments arguments) {
   int count;
   const float* axes = glfwGetJoystickAxes(joy, &count);
 
-  Dart_Handle axislist = Dart_NewList(count);
+  Dart_Handle double_type = HandleError(
+      Dart_GetType(CoreLibrary, Dart_NewStringFromCString("double"), 0, NULL));
+  Dart_Handle axis_list = Dart_NewListOfType(double_type, count);
   for (int i = 0; i < count; i++) {
-    Dart_ListSetAt(axislist, i, Dart_NewDouble(axes[i]));
+    Dart_ListSetAt(axis_list, i, Dart_NewDouble(axes[i]));
   }
-  Dart_SetReturnValue(arguments, axislist);
+  Dart_SetReturnValue(arguments, axis_list);
   TRACE_END(glfwGetJoystickAxes_);
 }
 
@@ -211,7 +218,7 @@ void glfwGetJoystickButtons_native(Dart_NativeArguments arguments) {
   int count;
   const unsigned char* buttons = glfwGetJoystickButtons(joy, &count);
 
-  Dart_Handle buttonlist = Dart_NewList(count);
+  Dart_Handle buttonlist = Dart_NewListOf(Dart_CoreType_Int, count);
   for (int i = 0; i < count; i++) {
     Dart_ListSetAt(buttonlist, i, Dart_NewInteger(buttons[i]));
   }

@@ -15,6 +15,6 @@ struct FunctionLookup {
   Dart_NativeFunction function;
 };
 
-extern const struct FunctionLookup *function_list;
+extern const struct FunctionLookup* function_list;
 
-#endif // DART_GLFW_LIB_SRC_GENERATED_FUNCTION_LIST_H_
+#endif  // DART_GLFW_LIB_SRC_GENERATED_FUNCTION_LIST_H_

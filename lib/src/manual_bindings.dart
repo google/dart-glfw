@@ -20,10 +20,10 @@ GLFWVersion glfwGetVersion() native "glfwGetVersion";
 List<GLFWmonitor> glfwGetMonitors() native "glfwGetMonitors";
 
 /// Returns a [Point] instance.
-Point glfwGetMonitorPos(GLFWmonitor monitor) native "glfwGetMonitorPos";
+Point<int> glfwGetMonitorPos(GLFWmonitor monitor) native "glfwGetMonitorPos";
 
 /// Returns a [Rectangle] instance with [xpos] and [ypos] set to 0.
-Rectangle glfwGetMonitorPhysicalSize(GLFWmonitor monitor)
+Rectangle<int> glfwGetMonitorPhysicalSize(GLFWmonitor monitor)
     native "glfwGetMonitorPhysicalSize";
 
 /// Returns a [List<GLFWvidmode>] instance.
@@ -31,17 +31,17 @@ List<GLFWvidmode> glfwGetVideoModes(GLFWmonitor monitor)
     native "glfwGetVideoModes";
 
 /// Returns a [Point] instance.
-Point glfwGetWindowPos(GLFWwindow window) native "glfwGetWindowPos";
+Point<int> glfwGetWindowPos(GLFWwindow window) native "glfwGetWindowPos";
 
 /// Returns a [Rectangle] instance with [xpos] and [ypos] set to 0.
-Rectangle glfwGetWindowSize(GLFWwindow window) native "glfwGetWindowSize";
+Rectangle<int> glfwGetWindowSize(GLFWwindow window) native "glfwGetWindowSize";
 
 /// Returns a [Rectangle] instance with [xpos] and [ypos] set to 0.
-Rectangle glfwGetFramebufferSize(GLFWwindow window)
+Rectangle<int> glfwGetFramebufferSize(GLFWwindow window)
     native "glfwGetFramebufferSize";
 
 /// Returns a [Rectangle] instance.
-Rectangle glfwGetWindowFrameSize(GLFWwindow window)
+Rectangle<int> glfwGetWindowFrameSize(GLFWwindow window)
     native "glfwGetWindowFrameSize";
 
 /// [pointer] parameter is a Dart [Object].
@@ -53,7 +53,7 @@ Object glfwGetWindowUserPointer(GLFWwindow window)
     native "glfwGetWindowUserPointer";
 
 /// Returns a [Point] instance.
-Point glfwGetCursorPos(GLFWwindow window) native "glfwGetCursorPos";
+Point<int> glfwGetCursorPos(GLFWwindow window) native "glfwGetCursorPos";
 
 /// Returns a [List<double>] instance.
 List<double> glfwGetJoystickAxes(int joy) native "glfwGetJoystickAxes";

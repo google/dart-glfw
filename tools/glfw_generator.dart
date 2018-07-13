@@ -352,7 +352,7 @@ void _GLFWdropfun_cb(GLFWwindow* window, int count, const char** paths) {
   Dart_Handle arguments[3];
   arguments[0] = HANDLE(NewGLFWwindow(window));
   arguments[1] = HANDLE(Dart_NewInteger(count));
-  arguments[2] = HANDLE(Dart_NewList(count));
+  arguments[2] = HANDLE(Dart_NewListOf(Dart_CoreType_String, count));
   for (int i = 0; i<count; i++) {
     HANDLE(Dart_ListSetAt(arguments[2], i, Dart_NewStringFromCString(paths[i])));
   }

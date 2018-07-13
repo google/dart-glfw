@@ -1,6 +1,7 @@
 # Don’t commit the following files or directories created by pub.
 .packages
 .pub/
+.dart_tool/
 build/
 packages/
 

@@ -24,8 +24,12 @@
 // int8, etc.
 
 Dart_Handle NewPoint(int x, int y) {
-  Dart_Handle Point_type = HandleError(
-      Dart_GetType(MathLibrary, Dart_NewStringFromCString("Point"), 0, NULL));
+  Dart_Handle int_type = HandleError(
+      Dart_GetType(CoreLibrary, Dart_NewStringFromCString("int"), 0, NULL));
+  Dart_Handle type_args = HandleError(Dart_NewList(1));
+  HandleError(Dart_ListSetAt(type_args, 0, int_type));
+  Dart_Handle Point_type = HandleError(Dart_GetType(
+      MathLibrary, Dart_NewStringFromCString("Point"), 1, &type_args));
 
   Dart_Handle arguments[2];
   arguments[0] = Dart_NewInteger(x);
@@ -35,8 +39,12 @@ Dart_Handle NewPoint(int x, int y) {
 }
 
 Dart_Handle NewRectangle(int left, int top, int width, int height) {
+  Dart_Handle int_type = HandleError(
+      Dart_GetType(CoreLibrary, Dart_NewStringFromCString("int"), 0, NULL));
+  Dart_Handle type_args = HandleError(Dart_NewList(1));
+  HandleError(Dart_ListSetAt(type_args, 0, int_type));
   Dart_Handle Rectangle_type = HandleError(Dart_GetType(
-      MathLibrary, Dart_NewStringFromCString("Rectangle"), 0, NULL));
+      MathLibrary, Dart_NewStringFromCString("Rectangle"), 1, &type_args));
 
   Dart_Handle arguments[4];
   arguments[0] = Dart_NewInteger(left);

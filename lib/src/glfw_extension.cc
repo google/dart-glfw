@@ -16,6 +16,7 @@
 #include "util.h"
 
 Dart_Handle GLFWLibrary;
+Dart_Handle CoreLibrary;
 Dart_Handle MathLibrary;
 
 DART_EXPORT Dart_Handle glfw_extension_Init(Dart_Handle parent_library) {
@@ -32,6 +33,8 @@ DART_EXPORT Dart_Handle glfw_extension_Init(Dart_Handle parent_library) {
   GLFWLibrary =
       HandleError(Dart_NewPersistentHandle(HandleError(Dart_LookupLibrary(
           Dart_NewStringFromCString("package:glfw/glfw.dart")))));
+  CoreLibrary = HandleError(Dart_NewPersistentHandle(
+      HandleError(Dart_LookupLibrary(Dart_NewStringFromCString("dart:core")))));
   MathLibrary = HandleError(Dart_NewPersistentHandle(
       HandleError(Dart_LookupLibrary(Dart_NewStringFromCString("dart:math")))));
 

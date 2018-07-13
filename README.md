@@ -1,7 +1,8 @@
-# Dart bindings to [GLFW](http://glfw.org/) 3.1.1.
+# Dart bindings to [GLFW](http://glfw.org/) 3.2.1.
 
-It is unlikely that programs written with these bindings will work on OSX due to
-requirements that the main thread be the one handling events.
+Supports Linux and Windows. OSX is not supported due to inherent
+incompatibilites in the OSX UI threading model, as well as Apple announcing the
+discontinuing of support of OpenGL on OSX (https://goo.gl/qQdeQ5).
 
 # Steps to generate the bindings
 
@@ -15,16 +16,11 @@ mv generated/* lib/src/generated
 
 # Steps to compile the bindings
 
-Set environment variables DART_SDK, GLFW_INCLUDE, and GLFW_LIB.
+The previous method for compiling the bindings is no longer available. We are
+working on a new solution for both Linux and Windows.
 
-```shell
-cd lib/
-dart ../tools/glfw_compile.dart
-```
-
-Note that if you set the `GLFW_LIB` variable when compiling, you must also set
-`LD_LIBRARY_PATH` to include the same directory when running your program or the
-Dart VM will not be able to find `libglfw.so`.
+In the meantime, the Makefile in the lib/ directory is a good starting point for
+compiling on Linux.
 
 # Notes about the auto-generated bindings
 
