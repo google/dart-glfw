@@ -1,5 +1,5 @@
 name: glfw
-version: 1.0.2
+version: 1.0.2+1
 description: Dart GLFW bindings
 authors:
   - John McDole <codefu@google.com>
