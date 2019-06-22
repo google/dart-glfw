@@ -48,8 +48,10 @@ main(List<String> args) async {
 
   var readStream = new File(path.join(glfwPath, 'glfw3.h')).openRead();
   var defineRegex = new RegExp(r'#define GLFW_[^ ]+\s+\d+');
-  await for (var line
-      in readStream.transform(utf8.decoder).transform(new LineSplitter())) {
+  await for (var line in readStream
+      .cast<List<int>>()
+      .transform(utf8.decoder)
+      .transform(new LineSplitter())) {
     if (line.contains(defineRegex)) {
       defines.add(line.substring('#define '.length).trim());
     } else if (line.startsWith('GLFWAPI ')) {
