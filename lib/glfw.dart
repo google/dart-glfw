@@ -13,7 +13,6 @@
 /// for more detail.
 library glfw;
 
-import 'dart:async';
 import 'dart:isolate';
 
 import 'dart-ext:glfw_extension';
